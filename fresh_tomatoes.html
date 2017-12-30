@@ -1,16 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Dec 22 17:20:57 2017
 
-@author: Paulina Moreno
-"""
-import webbrowser
-import os
-import re
-
-
-# Styles and scripting for the page
-main_page_head = '''
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -146,11 +134,7 @@ main_page_head = '''
     </script>
 
 </head>
-'''
 
-
-# The main page layout and title bar
-main_page_content = '''
   <body>
     <!-- Trailer Video Modal -->
     <div class="modal" id="trailer">
@@ -177,23 +161,41 @@ main_page_content = '''
     </div>
     <div class="container tv_show_bg">
       <h2> TV Shows <h2>
-      {tv_show_tiles}
+      
+<div class="col-md-6 col-lg-4 tv_show-tile text-center" data-trailer-youtube-id="HhesaQXLuRY" data-toggle="modal" data-target="#trailer">
+    <img src="http://cdn.collider.com/wp-content/uploads/breaking_bad_season_3_promo_art_01.jpg" width="250" height="360">
+    <h4>Breaking bad</h4>
+
+</div>
+
+<div class="col-md-6 col-lg-4 tv_show-tile text-center" data-trailer-youtube-id="I-8914DuyhY" data-toggle="modal" data-target="#trailer">
+    <img src="http://the-back-row.com/wp-content/uploads/2013/08/79438-breaking-bad-breaking-bad-poster.jpg" width="250" height="360">
+    <h4>Breaking bad</h4>
+
+</div>
+
+<div class="col-md-6 col-lg-4 tv_show-tile text-center" data-trailer-youtube-id="35FKJpexDho" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/0/0e/TheWalkingDeadPoster.jpg" width="250" height="360">
+    <h4>Walking dead-'Days Gone Bye'</h4>
+
+</div>
+
+<div class="col-md-6 col-lg-4 tv_show-tile text-center" data-trailer-youtube-id="1OZ0mu8Ey6A" data-toggle="modal" data-target="#trailer">
+    <img src="https://s-media-cache-ak0.pinimg.com/originals/b0/61/d2/b061d28364202bc96dfb8f267876f534.jpg" width="250" height="360">
+    <h4>Walking dead-'What Lies Ahead'</h4>
+
+</div>
+
 
      </div>
     <div class="container movie_bg">
       <h2> Movies <h2>
-      {movie_tiles}
-    </div>
-   </body>
-</html>
-'''
-# A single movie entry html template
-movie_tile_content = '''
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
+      
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="V75dMMIW2B4" data-toggle="modal" data-target="#trailer">
     <div>
-        <img class="movieimg" src="{poster_image_url}" width="250" height="360">
-        <h4 class="title">{movie_title}</h4>
-        <p class="storyline" hidden>{movie_storyline}</p>
+        <img class="movieimg" src="https://upload.wikimedia.org/wikipedia/en/9/9d/The_Lord_of_the_Rings_The_Fellowship_of_the_Ring_%282001%29_theatrical_poster.jpg" width="250" height="360">
+        <h4 class="title">The Lord of the Rings , The Fellowship of the Ring</h4>
+        <p class="storyline" hidden>The story begins in the Shire, where the hobbit Frodo Baggins inherits the Ring from Bilbo Baggins, his cousin and guardian. Neither hobbit is aware of the Ring's nature, but Gandalf the Grey, a wizard and an old friend of Bilbo, suspects it to be Sauron's Ring.</p>
     </div>
     <div>
         <input type="button" class="btnDescription" value="see more ..." />
@@ -201,61 +203,72 @@ movie_tile_content = '''
    </div>
  </div>
  
-'''
-# A single tv_show entry html template
-tv_show_tile_content = '''
-<div class="col-md-6 col-lg-4 tv_show-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
-    <img src="{poster_image_url}" width="250" height="360">
-    <h4>{tv_show_title}</h4>
 
-</div>
-'''
-def create_tv_show_tiles_content(tv_shows):
-    # The HTML content for this section of the page
-    content = ''
-    for tv_show in tv_shows:
-        # Extract the youtube ID from the url
-        youtube_id_match = re.search(r'(?<=v=)[^&#]+', tv_show.youtube_trailer_url)
-        youtube_id_match = youtube_id_match or re.search(r'(?<=be/)[^&#]+', tv_show.youtube_trailer_url)
-        trailer_youtube_id = youtube_id_match.group(0) if youtube_id_match else None
-        print("tv "+trailer_youtube_id)
-        # Append the tile for the tv_show with its content filled in
-        content += tv_show_tile_content.format(
-            tv_show_title=tv_show.title,
-            poster_image_url=tv_show.poster_image_url,
-            trailer_youtube_id=trailer_youtube_id
-        )
-    return content
-def create_movie_tiles_content(movies):
-    # The HTML content for this section of the page
-    content = ''
-    for movie in movies:
-        # Extract the youtube ID from the url
-        youtube_id_match = re.search(r'(?<=v=)[^&#]+', movie.youtube_trailer_url)
-        youtube_id_match = youtube_id_match or re.search(r'(?<=be/)[^&#]+', movie.youtube_trailer_url)
-        trailer_youtube_id = youtube_id_match.group(0) if youtube_id_match else None
-        print("movie "+trailer_youtube_id)
-        # Append the tile for the movie with its content filled in
-        content += movie_tile_content.format(
-            movie_title=movie.title,
-            movie_storyline=movie.storyline,
-            poster_image_url=movie.poster_image_url,
-            trailer_youtube_id=trailer_youtube_id
-        )
-    return content
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="KYz2wyBy3kc" data-toggle="modal" data-target="#trailer">
+    <div>
+        <img class="movieimg" src="https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-m8zzyx_5670999f.jpeg?region=0,0,300,450" width="250" height="360">
+        <h4 class="title">Toy Story</h4>
+        <p class="storyline" hidden>A little boy named Andy loves to be in his room, playing with his toys, especially his doll named 'Woody'. But, what do the toys do when Andy is not with them, they come to life.</p>
+    </div>
+    <div>
+        <input type="button" class="btnDescription" value="see more ..." />
+        </br>
+   </div>
+ </div>
+ 
 
-def open_videos_page(movies ,tv_shows):
-    # Create or overwrite the output file
-    output_file = open('fresh_tomatoes.html', 'w')
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="cFv2xPvQfJ4" data-toggle="modal" data-target="#trailer">
+    <div>
+        <img class="movieimg" src="https://images-na.ssl-images-amazon.com/images/M/MV5BMTk2NTI1MTU4N15BMl5BanBnXkFtZTcwODg0OTY0Nw@@._V1_SY1000_CR0,0,675,1000_AL_.jpg" width="250" height="360">
+        <h4 class="title">The Avengers</h4>
+        <p class="storyline" hidden>Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.</p>
+    </div>
+    <div>
+        <input type="button" class="btnDescription" value="see more ..." />
+        </br>
+   </div>
+ </div>
+ 
 
-    # Replace the movie and tv_show tiles placeholder generated content
-    rendered_content = main_page_content.format(
-        movie_tiles = create_movie_tiles_content(movies), tv_show_tiles = create_tv_show_tiles_content(tv_shows))
-    
-    # Output the file
-    output_file.write(main_page_head + rendered_content )
-    output_file.close()
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="VyHV0BRtdxo" data-toggle="modal" data-target="#trailer">
+    <div>
+        <img class="movieimg" src="https://images-na.ssl-images-amazon.com/images/M/MV5BNjQ3NWNlNmQtMTE5ZS00MDdmLTlkZjUtZTBlM2UxMGFiMTU3XkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_UY1200_CR90,0,630,1200_AL_.jpg" width="250" height="360">
+        <h4 class="title">Harry Potter and the Sorcerer's Stone</h4>
+        <p class="storyline" hidden>Rescued from the outrageous neglect of his aunt and uncle, a young boy with a great destiny proves his worth while attending Hogwarts School of Witchcraft and Wizardry.</p>
+    </div>
+    <div>
+        <input type="button" class="btnDescription" value="see more ..." />
+        </br>
+   </div>
+ </div>
+ 
 
-    # open the output file in the browser (in a new tab, if possible)
-    url = os.path.abspath(output_file.name)
-    webbrowser.open('file://' + url, new=2)
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="5guMumPFBag" data-toggle="modal" data-target="#trailer">
+    <div>
+        <img class="movieimg" src="https://upload.wikimedia.org/wikipedia/en/f/f3/Pacific_Rim_FilmPoster.jpeg" width="250" height="360">
+        <h4 class="title">Pacific Rim</h4>
+        <p class="storyline" hidden>In 2013, huge alien sea monsters called Kaiju emerge from an interdimensional portal called the Breach at the bottom of the Pacific Ocean. Over the course of three years, the Kaiju wreak havoc upon coastal cities along the Ring of Fire, such as San Francisco, Cabo San Lucas, Sydney, Manila, and Hong Kong. </p>
+    </div>
+    <div>
+        <input type="button" class="btnDescription" value="see more ..." />
+        </br>
+   </div>
+ </div>
+ 
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="eogpIG53Cis" data-toggle="modal" data-target="#trailer">
+    <div>
+        <img class="movieimg" src="https://upload.wikimedia.org/wikipedia/en/5/53/Blade_Runner_poster.jpg" width="250" height="360">
+        <h4 class="title">Blade Runner</h4>
+        <p class="storyline" hidden>This a 1982 American neo-noir science fiction film directed by Ridley Scott, written by Hampton Fancher and David Peoples, and starring Harrison Ford, Rutger Hauer, Sean Young, and Edward James Olmos.</p>
+    </div>
+    <div>
+        <input type="button" class="btnDescription" value="see more ..." />
+        </br>
+   </div>
+ </div>
+ 
+
+    </div>
+   </body>
+</html>
